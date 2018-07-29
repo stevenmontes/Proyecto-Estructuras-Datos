@@ -32,6 +32,7 @@ public:
     string mostrarEstudiantes();
     string buscarEstudiante(string);
     string buscarCurso(string);
+    string insertarNota(string cedula, int nota);
 private:
 
 };

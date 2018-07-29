@@ -22,14 +22,17 @@ Controlador controlador;
 
 void mostrarMenu();
 int solicitarOpcion(string);
+string solicitarInformacion(string);
 bool leerOpcion(int);
 void obtenerInfoEstudiante();
 void obtenerInfoCurso();
-void matricularEstudiantesACurso();
-void mostrarListaEstudiantesCurso();
-void mostrarCursosMatriculadosPorEstudiante();
+void matricularEstudiantesACurso(string* prt, string* ptr);
+void mostrarListaEstudiantesCurso(string* prt);
+void mostrarCursosMatriculadosPorEstudiante(string* prt);
 void mostrarEstadoEstudiantes();
-void insertarNota();
+void insertarNota(string* prt);
+void buscarCurso(string* prt);
+void buscarEstudiante(string* prt);
 
 /*
  * 
@@ -40,7 +43,7 @@ int main(int argc, char** argv) {
 
     while (!salir) {
         mostrarMenu();
-        opcion = solicitarOpcion("Seleccione una opcion.");
+        opcion = solicitarOpcion("Seleccione una opci\u00f3n.");
         salir = leerOpcion(opcion);
     }
 
@@ -48,14 +51,19 @@ int main(int argc, char** argv) {
 }
 
 void mostrarMenu() {
-    cout << "Menu principal." << endl;
+    cout << "Men\u00fa principal." << endl;
     cout << "1. Crear curso." << endl;
-    cout << "2. Anadir estudiantes nuevos." << endl;
-    cout << "3. Matricular estudiantes a curso." << endl;
-    cout << "4. Mostrar estudiantes por curso" << endl;
-    cout << "5. Mostrar cursos matriculados por estudiante." << endl;
-    cout << "6. Mostrar estudiantes por estado." << endl;
-    cout << "7. Salir." << endl;
+    cout << "2. A\u00f1adir estudiantes nuevos." << endl;
+    cout << "3. Matricular estudiantes a un curso." << endl;
+    cout << "4. Mostrar estudiantes de un curso" << endl;
+    cout << "5. Mostrar cursos matriculados de un estudiante." << endl;
+    cout << "6. Mostrar estudiantes por nota." << endl;
+    cout << "7. Mostrar todos los cursos." << endl;
+    cout << "8. Mostrar todos los estudiantes." << endl;
+    cout << "9. Buscar un curso." << endl;
+    cout << "10. Buscar un estudiante" << endl;
+    cout << "11. Insertar nota" << endl;
+    cout << "12. Salir." << endl;
 }
 
 int solicitarOpcion(string message) {
@@ -65,8 +73,15 @@ int solicitarOpcion(string message) {
     return opcion;
 }
 
+string solicitarInformacion(string message) {
+    string opcion;
+    cout << message << endl;
+    cin >> opcion;
+    return opcion;
+}
+
 bool leerOpcion(int opcion) {
-    string codigo;
+    string codigo, cedula;
     switch (opcion) {
         case 1:
             obtenerInfoCurso();
@@ -75,109 +90,93 @@ bool leerOpcion(int opcion) {
             obtenerInfoEstudiante();
             break;
         case 3:
-            matricularEstudiantesACurso();
+            matricularEstudiantesACurso(&codigo, &cedula);
             break;
         case 4:
-            mostrarListaEstudiantesCurso();
+            mostrarListaEstudiantesCurso(&codigo);
             break;
         case 5:
-            mostrarCursosMatriculadosPorEstudiante();
+            mostrarCursosMatriculadosPorEstudiante(&codigo);
             break;
         case 6:
             mostrarEstadoEstudiantes();
             break;
         case 7:
-            return true;
-        case 8:
             cout << controlador.mostrarCursos();
             break;
-        case 9:
+        case 8:
             cout << controlador.mostrarEstudiantes();
             break;
+        case 9:
+            buscarCurso(&codigo);
+            break;
         case 10:
-            cout << "Digite el codigo del curso" << endl;
-            cin >> codigo;
-            cout << controlador.buscarCurso(codigo);
+            buscarEstudiante(&codigo);
             break;
         case 11:
-            cout << "Digite la cedula del estudiante" << endl;
-            cin >> codigo;
-            cout << controlador.buscarEstudiante(codigo);
-            break;
+            insertarNota(&codigo);
         case 12:
-            insertarNota();
+            return true;
         default:
             break;
     }
-    
+
     return false;
 }
 
-void obtenerInfoCurso(){
-    string codigo, nombre, aula, horario, dias;
-    cout << "Digite el codigo del curso." << endl;
-    cin >> codigo;
-    cout << "Digite el nombre del curso." << endl;
-    cin >> nombre;
-    cout << "Digite el aula del curso." << endl;
-    cin >> aula;
-    cout << "Digite el horario del curso." << endl;
-    cin >> horario;
-    cout << "Digite el los dias lectivos del curso." << endl;
-    cin >> dias;
+void obtenerInfoCurso() {
+    string codigo = solicitarInformacion("Digite el c\u00f3digo del curso");
+    string nombre = solicitarInformacion("Digite el nombre del curso");
+    string aula = solicitarInformacion("Digite el aula del curso");
+    string horario = solicitarInformacion("Digite el horario del curso");
+    string dias = solicitarInformacion("Digite los d\u00edas del curso");
     cout << controlador.ingresarCurso(codigo, nombre, aula, horario, dias);
 }
 
-void obtenerInfoEstudiante(){
-    string cedula, nombre1, nombre2, apellido1, apellido2;
-    cout << "Digite la cedula del estudiante." << endl;
-    cin >> cedula;
-    cout << "Digite el primer nombre del estudiante." << endl;
-    cin >> nombre1;
-    cout << "Digite el segundo nombre del estudiante." << endl;
-    cin >> nombre2;
-    cout << "Digite el primer apellido del estudiante." << endl;
-    cin >> apellido1;
-    cout << "Digite el segundo apellido del estudiante." << endl;
-    cin >> apellido2;
+void obtenerInfoEstudiante() {
+    string cedula = solicitarInformacion("Digite la c\u00e9dula del estudiante");
+    string nombre1 = solicitarInformacion("Digite el primer nombre del estudiante");
+    string nombre2 = solicitarInformacion("Digite el segundo nombre del estudiante");
+    string apellido1 = solicitarInformacion("Digite el primer apellido del estudiante");
+    string apellido2 = solicitarInformacion("Digite el segundo apellido del estudiante");
     cout << controlador.ingresarEstudiante(cedula, nombre1, nombre2,
             apellido1, apellido2);
 }
 
-void matricularEstudiantesACurso(){
-    string codigo, cedula;
-    cout << "Digite el codigo del curso." << endl;
-    cin >> codigo;
-    cout << "Digite la cedula del estudiante a matricular" << endl;
-    cin >> cedula;
-    cout << controlador.matricularEstudiante(cedula, codigo);
+void matricularEstudiantesACurso(string* ptrCodigo, string* ptrCedula) {
+    *ptrCodigo = solicitarInformacion("Digite el c\u00f3digo del curso");
+    *ptrCedula = solicitarInformacion("Digite la c\u00e9dula del estudiante");
+    cout << controlador.matricularEstudiante(*ptrCedula, *ptrCodigo);
 }
 
-void mostrarCursosMatriculadosPorEstudiante(){
-    string cedula;
-    cout << "Digite la cedula del estudiante" << endl;
-    cin >> cedula;
-    cout << controlador.mostrarCursosPorEstudiante(cedula);
+void mostrarListaEstudiantesCurso(string* ptrCodigo) {
+    *ptrCodigo = solicitarInformacion("Digite el c\u00f3digo del curso");
+    cout << controlador.mostrarEstudiantesPorCurso(*ptrCodigo);
 }
 
-void mostrarListaEstudiantesCurso(){
-    string codigo;
-    cout << "Digite el codigo del curso" << endl;
-    cin >> codigo;
-    cout << controlador.mostrarEstudiantesPorCurso(codigo);
+void mostrarCursosMatriculadosPorEstudiante(string* ptrCodigo) {
+    *ptrCodigo = solicitarInformacion("Digite la c\u00e9dula del estudiante");
+    cout << controlador.mostrarCursosPorEstudiante(*ptrCodigo);
 }
 
-void mostrarEstadoEstudiantes(){
-    
+void mostrarEstadoEstudiantes() {
+
 }
 
-void insertarNota(){
-    string cedula = "";
-    int nota = 0;
-    cout << "Digite la cedula del estudiante" << endl;
-    cin >> cedula;
-    cout << "Digite la nota del estudiante" << endl;
-    cin >> nota;
-    cout << controlador.insertarNota(cedula, nota);
+void buscarCurso(string* ptrCodigo) {
+    *ptrCodigo = solicitarInformacion("Digite el c\u00f3digo del curso");
+    cout << controlador.buscarCurso(*ptrCodigo);
 }
+
+void buscarEstudiante(string* ptrCodigo) {
+    *ptrCodigo = solicitarInformacion("Digite la c\u00e9dula del estudiante");
+    cout << controlador.buscarEstudiante(*ptrCodigo);
+}
+void insertarNota(string* ptrCodigo) {
+    *ptrCodigo = solicitarInformacion("Digite la c\u00e9dula del estudiante");
+    int nota = solicitarOpcion("Digite la nota del estudiante");
+    cout << controlador.insertarNota(*ptrCodigo, nota);
+}
+
+
 

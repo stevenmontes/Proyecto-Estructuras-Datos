@@ -52,25 +52,24 @@ string ListaCursos::mostrar() {
 
     while (aux != NULL) {
         contenido << "Curso: " << (++cont) << " "
-                << aux->getInfo().toString() << "\n";
+                << aux->getInfo()->toString() << "\n";
         aux = aux->getSiguiente();
     }
 
     return contenido.str();
 }
 
-Curso ListaCursos::buscar(string dato) {
+Curso* ListaCursos::buscar(string dato) {
     NodoCurso* aux = getCabeza();
-    Curso encontrado;
+    Curso* encontrado;
 
     if (esVacia()) {
         return encontrado;
     }
 
     while (aux != NULL) {
-        if (aux->getInfo().getCodigo() == dato) {
-            encontrado = aux->getInfo();
-            break;
+        if (aux->getInfo()->getCodigo() == dato) {
+            return aux->getInfo();
         }
         aux = aux->getSiguiente();
     }
@@ -95,10 +94,10 @@ string ListaCursos::obtenerCursosMatriculados(string cedula){
     stringstream cursosMatriculados;
     
     while(aux != NULL){
-        existe = aux->getInfo().getListaEstudiantes().isExisteEstudiante(cedula);
+        existe = aux->getInfo()->getListaEstudiantes().isExisteEstudiante(cedula);
         if(existe){
             cursosMatriculados << (++cont) << "- " 
-                    << aux->getInfo().getNombre() << "\n";
+                    << aux->getInfo()->getNombre() << "\n";
         }
         aux = aux->getSiguiente();
     }

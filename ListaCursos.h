@@ -27,7 +27,7 @@ public:
     NodoCurso* getCabeza();
     void insertar(Curso nuevo);
     string mostrar();
-    Curso buscar(string);
+    Curso* buscar(string);
     string obtenerCursosMatriculados(string cedula);
     int size();
     bool esVacia();

@@ -22,6 +22,7 @@ using namespace std;
 class Curso {
 public:
     Curso();
+    Curso(string, string, string, string, string);
     virtual ~Curso();
     void setCodigo(string codigo);
     void setNombre(string nombre);

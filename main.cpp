@@ -27,7 +27,7 @@ void obtenerInfoEstudiante();
 void obtenerInfoCurso();
 void matricularEstudiantesACurso();
 void mostrarListaEstudiantesCurso();
-void mostrarCursosPorEstudiante();
+void mostrarCursosMatriculadosPorEstudiante();
 void mostrarEstadoEstudiantes();
 
 /*
@@ -80,7 +80,7 @@ bool leerOpcion(int opcion) {
             mostrarListaEstudiantesCurso();
             break;
         case 5:
-            mostrarCursosPorEstudiante();
+            mostrarCursosMatriculadosPorEstudiante();
             break;
         case 6:
             mostrarEstadoEstudiantes();
@@ -150,8 +150,11 @@ void matricularEstudiantesACurso(){
     cout << controlador.matricularEstudiante(cedula, codigo);
 }
 
-void mostrarCursosPorEstudiante(){
-    
+void mostrarCursosMatriculadosPorEstudiante(){
+    string cedula;
+    cout << "Digite la cedula del estudiante" << endl;
+    cin >> cedula;
+    cout << controlador.mostrarCursosPorEstudiante(cedula);
 }
 
 void mostrarListaEstudiantesCurso(){

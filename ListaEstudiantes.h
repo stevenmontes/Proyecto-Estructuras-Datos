@@ -28,6 +28,8 @@ public:
     void insertar(Estudiante nuevo);
     string mostrar();
     Estudiante buscar(string);
+    bool isExisteEstudiante(string);
+    int size();
     bool esVacia();
 private:
     NodoEstudiante* cabeza;

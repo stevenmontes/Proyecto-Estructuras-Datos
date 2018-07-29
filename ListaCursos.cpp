@@ -77,3 +77,31 @@ Curso ListaCursos::buscar(string dato) {
 
     return encontrado;
 }
+
+int ListaCursos::size(){
+    NodoCurso* aux = getCabeza();
+    int cont = 0;
+    while(aux != NULL){
+        cont++;
+        aux = aux->getSiguiente();
+    }
+    return cont;
+}
+
+string ListaCursos::obtenerCursosMatriculados(string cedula){
+    NodoCurso* aux = getCabeza();
+    bool existe = false;
+    int cont = 0;
+    stringstream cursosMatriculados;
+    
+    while(aux != NULL){
+        existe = aux->getInfo().getListaEstudiantes().isExisteEstudiante(cedula);
+        if(existe){
+            cursosMatriculados << (++cont) << "- " 
+                    << aux->getInfo().getNombre() << "\n";
+        }
+        aux = aux->getSiguiente();
+    }
+    
+    return cursosMatriculados.str();
+}

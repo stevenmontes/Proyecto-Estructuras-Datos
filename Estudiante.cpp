@@ -12,6 +12,7 @@
  */
 
 #include "Estudiante.h"
+#include "ListaCursos.h"
 #include <string>
 #include <sstream>
 

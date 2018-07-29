@@ -29,6 +29,7 @@ void matricularEstudiantesACurso();
 void mostrarListaEstudiantesCurso();
 void mostrarCursosMatriculadosPorEstudiante();
 void mostrarEstadoEstudiantes();
+void insertarNota();
 
 /*
  * 
@@ -103,6 +104,8 @@ bool leerOpcion(int opcion) {
             cin >> codigo;
             cout << controlador.buscarEstudiante(codigo);
             break;
+        case 12:
+            insertarNota();
         default:
             break;
     }
@@ -166,5 +169,15 @@ void mostrarListaEstudiantesCurso(){
 
 void mostrarEstadoEstudiantes(){
     
+}
+
+void insertarNota(){
+    string cedula = "";
+    int nota = 0;
+    cout << "Digite la cedula del estudiante" << endl;
+    cin >> cedula;
+    cout << "Digite la nota del estudiante" << endl;
+    cin >> nota;
+    cout << controlador.insertarNota(cedula, nota);
 }
 

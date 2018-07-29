@@ -102,3 +102,13 @@ string Controlador::buscarEstudiante(string cedula) {
     return nuevo.toString();
 }
 
+string Controlador::insertarNota(string cedula, int nota){
+    bool funciono = listaGeneralEstudiantes.insertarNota(cedula, nota);
+    
+    if(funciono){
+        return "La nota se registro exitosamente \n";
+    } else {
+        return "El estudiante no se encuentra en el sistema. \n";
+    }
+}
+

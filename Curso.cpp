@@ -26,6 +26,15 @@ Curso::Curso() {
     setDiaSemanal("");
 }
 
+Curso::Curso(string codigo, string nombre,
+        string aula, string horario, string dia) {
+    setCodigo(codigo);
+    setNombre(nombre);
+    setAula(aula);
+    setHorario(horario);
+    setDiaSemanal(dia);
+}
+
 Curso::~Curso() {
 }
 

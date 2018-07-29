@@ -25,8 +25,8 @@ void NodoCurso::setInfo(Curso nuevoCurso){
     curso = nuevoCurso;
 }
 
-Curso NodoCurso::getInfo(){
-    return curso;
+Curso* NodoCurso::getInfo(){
+    return &curso;
 }
 
 void NodoCurso::setSiguiente(NodoCurso* nuevo){

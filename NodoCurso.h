@@ -22,7 +22,7 @@ public:
     virtual ~NodoCurso();
     void setSiguiente(NodoCurso* nuevo);
     void setInfo(Curso nuevoCurso);
-    Curso getInfo();
+    Curso* getInfo();
     NodoCurso* getSiguiente();
 private:
     NodoCurso* siguiente;

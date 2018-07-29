@@ -1,12 +1,8 @@
 build/Debug/Cygwin-Windows/Controlador.o: Controlador.cpp Controlador.h \
- ListaCursos.h NodoCurso.h Curso.h ListaEstudiantes.h NodoEstudiante.h \
- Estudiante.h
+ Curso.h ListaEstudiantes.h NodoEstudiante.h Estudiante.h ListaCursos.h \
+ NodoCurso.h
 
 Controlador.h:
-
-ListaCursos.h:
-
-NodoCurso.h:
 
 Curso.h:
 
@@ -15,3 +11,7 @@ ListaEstudiantes.h:
 NodoEstudiante.h:
 
 Estudiante.h:
+
+ListaCursos.h:
+
+NodoCurso.h:

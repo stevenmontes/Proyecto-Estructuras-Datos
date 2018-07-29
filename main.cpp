@@ -115,6 +115,7 @@ bool leerOpcion(int opcion) {
             break;
         case 11:
             insertarNota(&codigo);
+            break;
         case 12:
             return true;
         default:
@@ -130,7 +131,7 @@ void obtenerInfoCurso() {
     string aula = solicitarInformacion("Digite el aula del curso");
     string horario = solicitarInformacion("Digite el horario del curso");
     string dias = solicitarInformacion("Digite los d\u00edas del curso");
-    cout << controlador.ingresarCurso(codigo, nombre, aula, horario, dias);
+    cout << controlador.ingresarCurso(&codigo, &nombre, &aula, &horario, &dias);
 }
 
 void obtenerInfoEstudiante() {
@@ -139,24 +140,24 @@ void obtenerInfoEstudiante() {
     string nombre2 = solicitarInformacion("Digite el segundo nombre del estudiante");
     string apellido1 = solicitarInformacion("Digite el primer apellido del estudiante");
     string apellido2 = solicitarInformacion("Digite el segundo apellido del estudiante");
-    cout << controlador.ingresarEstudiante(cedula, nombre1, nombre2,
-            apellido1, apellido2);
+    cout << controlador.ingresarEstudiante(&cedula, &nombre1, &nombre2,
+            &apellido1, &apellido2);
 }
 
 void matricularEstudiantesACurso(string* ptrCodigo, string* ptrCedula) {
     *ptrCodigo = solicitarInformacion("Digite el c\u00f3digo del curso");
     *ptrCedula = solicitarInformacion("Digite la c\u00e9dula del estudiante");
-    cout << controlador.matricularEstudiante(*ptrCedula, *ptrCodigo);
+    cout << controlador.matricularEstudiante(ptrCedula, ptrCodigo);
 }
 
 void mostrarListaEstudiantesCurso(string* ptrCodigo) {
     *ptrCodigo = solicitarInformacion("Digite el c\u00f3digo del curso");
-    cout << controlador.mostrarEstudiantesPorCurso(*ptrCodigo);
+    cout << controlador.mostrarEstudiantesPorCurso(ptrCodigo);
 }
 
 void mostrarCursosMatriculadosPorEstudiante(string* ptrCodigo) {
     *ptrCodigo = solicitarInformacion("Digite la c\u00e9dula del estudiante");
-    cout << controlador.mostrarCursosPorEstudiante(*ptrCodigo);
+    cout << controlador.mostrarCursosPorEstudiante(ptrCodigo);
 }
 
 void mostrarEstadoEstudiantes() {
@@ -165,17 +166,17 @@ void mostrarEstadoEstudiantes() {
 
 void buscarCurso(string* ptrCodigo) {
     *ptrCodigo = solicitarInformacion("Digite el c\u00f3digo del curso");
-    cout << controlador.buscarCurso(*ptrCodigo);
+    cout << controlador.buscarCurso(ptrCodigo);
 }
 
 void buscarEstudiante(string* ptrCodigo) {
     *ptrCodigo = solicitarInformacion("Digite la c\u00e9dula del estudiante");
-    cout << controlador.buscarEstudiante(*ptrCodigo);
+    cout << controlador.buscarEstudiante(ptrCodigo);
 }
 void insertarNota(string* ptrCodigo) {
     *ptrCodigo = solicitarInformacion("Digite la c\u00e9dula del estudiante");
     int nota = solicitarOpcion("Digite la nota del estudiante");
-    cout << controlador.insertarNota(*ptrCodigo, nota);
+    cout << controlador.insertarNota(ptrCodigo, nota);
 }
 
 

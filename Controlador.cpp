@@ -71,7 +71,7 @@ string Controlador::matricularEstudiante(string cedula, string codCurso) {
 }
 
 string Controlador::mostrarCursosPorEstudiante(string cedAlumno) {
-
+    return listaCursos.obtenerCursosMatriculados(cedAlumno);
 }
 
 string Controlador::mostrarEstudiantesPorCurso(string codCurso) {
@@ -80,7 +80,8 @@ string Controlador::mostrarEstudiantesPorCurso(string codCurso) {
 }
 
 string Controlador::mostrarEstadosEstudiantes() {
-
+    int maximo = listaCursos.size();
+    
 }
 
 string Controlador::mostrarCursos() {

@@ -14,9 +14,12 @@
 #include "Controlador.h"
 #include "ListaCursos.h"
 #include "ListaEstudiantes.h"
+#include "Aula.h"
+#include <sstream>
 
 static ListaCursos listaCursos;
 static ListaEstudiantes listaGeneralEstudiantes;
+static Aula aulas[5];
 
 Controlador::Controlador() {
 }
@@ -29,7 +32,8 @@ Controlador::~Controlador() {
 
 string Controlador::ingresarCurso(string* codigo, string* nombre,
         string* aula, string* horario, string* dia) {
-    Curso nuevo(*codigo, *nombre, *aula, *horario, *dia);
+    Aula clase(*aula, false);
+    Curso nuevo(*codigo, *nombre, *horario, *dia, clase);
     listaCursos.insertar(nuevo);
     return "Se registr\u00f3 correctamente \n";
 }
@@ -87,13 +91,73 @@ string Controlador::buscarEstudiante(string* cedula) {
     return nuevo.toString();
 }
 
-string Controlador::insertarNota(string* cedula, int nota){
+string Controlador::insertarNota(string* cedula, int nota) {
     bool funciono = listaGeneralEstudiantes.insertarNota(*cedula, nota);
-    
-    if(funciono){
+
+    if (funciono) {
         return "La nota se registr\u00f3 exitosamente \n";
     } else {
         return "El estudiante no se encuentra en el sistema. \n";
     }
+}
+
+void Controlador::inicializarAulas() {
+    Aula clase1("1", true);
+    Aula clase2("2", true);
+    Aula clase3("3", true);
+    Aula clase4("4", true);
+    Aula clase5("5", true);
+    aulas[0] = clase1;
+    aulas[1] = clase2;
+    aulas[2] = clase3;
+    aulas[3] = clase4;
+    aulas[4] = clase5;
+}
+
+bool Controlador::esAulaDisponible(string aula) {
+    for (int i = 0; i < 5; i++) {
+        if (aulas[i].getNumero() == aula) {
+            if (aulas[i].getEstado() == true) {
+                return true;
+            }
+            return false;
+        }
+    }
+    return false;
+}
+
+string Controlador::cambiarEstadoAula(string aula) {
+    for (int i = 0; i < 5; i++) {
+        if (aulas[i].getNumero() == aula) {
+            aulas[i].setEstado(false);
+            return "El aula si est\u00e1 disponible.\n";
+        }
+    }
+    return "Error\n";
+}
+
+bool Controlador::validarAulasDisponibles() {
+    int cont = 0;
+    for (int i = 0; i < 5; i++) {
+        if (aulas[i].getEstado() == false) {
+            cont++;
+        }
+    }
+
+    if (cont == 5) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+string Controlador::mostrarAulas() {
+    stringstream contenido;
+    
+    for (int i = 0; i < 5; i++) {
+        contenido << "Aula: " << aulas[i].toString() << "\n";
+    }
+    
+    return contenido.str();
 }
 

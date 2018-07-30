@@ -24,7 +24,7 @@ public:
     Controlador();
     Controlador(const Controlador& orig);
     virtual ~Controlador();
-    string ingresarCurso(string*, string*, string*, string* ,string*);
+    string ingresarCurso(string*, string*, string* ,string*, string*);
     string ingresarEstudiante(string*, string*, string*, string* ,string*);
     string matricularEstudiante(string*, string*);
     string mostrarEstudiantesPorCurso(string*);
@@ -35,6 +35,11 @@ public:
     string buscarEstudiante(string*);
     string buscarCurso(string*);
     string insertarNota(string* cedula, int nota);
+    void inicializarAulas();
+    bool esAulaDisponible(string aula);
+    string cambiarEstadoAula(string aula);
+    bool validarAulasDisponibles();
+    string mostrarAulas();
 private:
 
 };

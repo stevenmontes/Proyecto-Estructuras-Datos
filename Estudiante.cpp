@@ -78,10 +78,10 @@ string Estudiante::getSegundoApellido(){
 
 string Estudiante::toString(){
     stringstream contenido;
-    contenido << "-Cedula: " << cedula << " -"
+    contenido << "-C\u00e9dula: " << cedula << " -"
               << "Primer nombre: " << primerNombre << " -"
               << "Segundo nombre:" << segundoNombre << " -"
-              << "Primer apellido:" << primerApellido << " -"
+              << "Primer apellido: " << primerApellido << " -"
               << "Segundo apellido: "<< segundoApellido << "\n";
     return contenido.str();
 }

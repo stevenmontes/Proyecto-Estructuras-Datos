@@ -30,7 +30,6 @@ public:
     Estudiante buscar(string);
     bool isExisteEstudiante(string);
     bool insertarNota(string, int);
-    int size();
     bool esVacia();
 private:
     NodoEstudiante* cabeza;

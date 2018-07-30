@@ -15,24 +15,23 @@
 #include "ListaEstudiantes.h"
 #include <string>
 #include <sstream>
-
 using namespace std;
+
 
 Curso::Curso() {
     setCodigo("");
     setNombre("");
-    setAula("");
     setHorario("");
     setDiaSemanal("");
 }
 
-Curso::Curso(string codigo, string nombre,
-        string aula, string horario, string dia) {
+Curso::Curso(string codigo, string nombre, string horario, string dia,
+        Aula clase) {
     setCodigo(codigo);
     setNombre(nombre);
-    setAula(aula);
     setHorario(horario);
     setDiaSemanal(dia);
+    setAula(clase);
 }
 
 Curso::~Curso() {
@@ -46,8 +45,8 @@ void Curso::setNombre(string nombre){
     this->nombre = nombre;
 }
 
-void Curso::setAula(string aula){
-    this->aula = aula;
+void Curso::setAula(Aula aula){
+    this->clase = aula;
 }
 
 void Curso::setListaEstudiantes(ListaEstudiantes listaNueva){
@@ -70,8 +69,8 @@ string Curso::getNombre(){
     return nombre;
 }
 
-string Curso::getAula(){
-    return aula;
+Aula Curso::getAula(){
+    return clase;
 }
 
 ListaEstudiantes Curso::getListaEstudiantes(){
@@ -88,11 +87,11 @@ string Curso::getDiaSemanal(){
 
 string Curso::toString(){
     stringstream contenido;
-    contenido << "-Codigo: " << codigo << " -" 
+    contenido << "-C\u00f3digo: " << codigo << " -" 
               << "Nombre: " << nombre << " -"
-              << "Numero aula:" << aula << " -"
-              << "Horario:" << horario << " -"
-              << "Dia semanal: "<< diaSemanal << "\n";
+              << "N\u00famero aula: " << clase.getNumero() << " -"
+              << "Horario: " << horario << " -"
+              << "D\u00eda semanal: "<< diaSemanal << "\n";
     return contenido.str();
 }
 

@@ -16,23 +16,24 @@
 #include "ListaEstudiantes.h"
 #include <string>
 #include <cstdlib>
+#include "Aula.h"
 
 using namespace std;
 
 class Curso {
 public:
     Curso();
-    Curso(string, string, string, string, string);
+    Curso(string, string, string, string, Aula clase);
     virtual ~Curso();
     void setCodigo(string codigo);
     void setNombre(string nombre);
-    void setAula(string aula);
+    void setAula(Aula aula);
     void setListaEstudiantes(ListaEstudiantes listaNueva);
     void setHorario(string nuevoHorario);
     void setDiaSemanal(string nuevoDiaSemanal);
     string getCodigo();
     string getNombre();
-    string getAula();
+    Aula getAula();
     ListaEstudiantes getListaEstudiantes();
     string getHorario();
     string getDiaSemanal();
@@ -41,7 +42,7 @@ public:
 private:
     string codigo = "";
     string nombre = "";
-    string aula = "";
+    Aula clase;
     ListaEstudiantes listaEstudiantes;
     string horario = "";
     string diaSemanal = "";

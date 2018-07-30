@@ -35,6 +35,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/Aula.o \
 	${OBJECTDIR}/Controlador.o \
 	${OBJECTDIR}/Curso.o \
 	${OBJECTDIR}/Estudiante.o \
@@ -68,6 +69,11 @@ LDLIBSOPTIONS=
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/sistemacontrolestudiantes.exe: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/sistemacontrolestudiantes ${OBJECTFILES} ${LDLIBSOPTIONS}
+
+${OBJECTDIR}/Aula.o: Aula.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Aula.o Aula.cpp
 
 ${OBJECTDIR}/Controlador.o: Controlador.cpp
 	${MKDIR} -p ${OBJECTDIR}

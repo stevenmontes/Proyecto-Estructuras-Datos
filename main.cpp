@@ -33,6 +33,9 @@ void mostrarEstadoEstudiantes();
 void insertarNota(string* prt);
 void buscarCurso(string* prt);
 void buscarEstudiante(string* prt);
+string solicitarHorario();
+string solicitarDiaSemana();
+string solicitarAula();
 
 /*
  * 
@@ -40,6 +43,7 @@ void buscarEstudiante(string* prt);
 int main(int argc, char** argv) {
     int opcion;
     bool salir = false;
+    controlador.inicializarAulas();
 
     while (!salir) {
         mostrarMenu();
@@ -52,8 +56,8 @@ int main(int argc, char** argv) {
 
 void mostrarMenu() {
     cout << "Men\u00fa principal." << endl;
-    cout << "1. Crear curso." << endl;
-    cout << "2. A\u00f1adir estudiantes nuevos." << endl;
+    cout << "1. A\u00f1adir curso nuevo." << endl;
+    cout << "2. A\u00f1adir estudiante nuevo." << endl;
     cout << "3. Matricular estudiantes a un curso." << endl;
     cout << "4. Mostrar estudiantes de un curso" << endl;
     cout << "5. Mostrar cursos matriculados de un estudiante." << endl;
@@ -118,6 +122,9 @@ bool leerOpcion(int opcion) {
             break;
         case 12:
             return true;
+        case 13:
+            cout << controlador.mostrarAulas();
+            break;
         default:
             break;
     }
@@ -128,9 +135,9 @@ bool leerOpcion(int opcion) {
 void obtenerInfoCurso() {
     string codigo = solicitarInformacion("Digite el c\u00f3digo del curso");
     string nombre = solicitarInformacion("Digite el nombre del curso");
-    string aula = solicitarInformacion("Digite el aula del curso");
-    string horario = solicitarInformacion("Digite el horario del curso");
-    string dias = solicitarInformacion("Digite los d\u00edas del curso");
+    string aula = solicitarAula();
+    string horario = solicitarHorario();
+    string dias = solicitarDiaSemana();
     cout << controlador.ingresarCurso(&codigo, &nombre, &aula, &horario, &dias);
 }
 
@@ -173,10 +180,71 @@ void buscarEstudiante(string* ptrCodigo) {
     *ptrCodigo = solicitarInformacion("Digite la c\u00e9dula del estudiante");
     cout << controlador.buscarEstudiante(ptrCodigo);
 }
+
 void insertarNota(string* ptrCodigo) {
     *ptrCodigo = solicitarInformacion("Digite la c\u00e9dula del estudiante");
     int nota = solicitarOpcion("Digite la nota del estudiante");
     cout << controlador.insertarNota(ptrCodigo, nota);
+}
+
+string solicitarHorario() {
+    while (true) {
+        int horario = solicitarOpcion("Digite el horario del curso\n"
+                " 1. Ma\u00f1ana \n 2. Tarde \n 3. Noche \n");
+        switch (horario) {
+            case 1:
+                return "Ma\u00f1ana";
+            case 2:
+                return "Tarde";
+            case 3:
+                return "Noche";
+            default:
+                cout << "Dato incorrecto. vuelve a intentarlo." << endl;
+                break;
+        }
+    }
+
+}
+
+string solicitarDiaSemana() {
+    while (true) {
+        int diaSemanal = solicitarOpcion("Digite el d\u00eda de la semana\n"
+                " 1. Lunes.\n 2. Martes.\n 3. Mi\u00e9rcoles.\n 4. Jueves.\n 5. Viernes.\n"
+                " 6. S\u00e1bado.");
+        switch (diaSemanal) {
+            case 1:
+                return "Lunes";
+            case 2:
+                return "Martes";
+            case 3:
+                return "Mi\u00e9rcoles";
+            case 4:
+                return "Jueves";
+            case 5:
+                return "Viernes";
+            case 6:
+                return "S\u00e1bado";
+            default:
+                cout << "Dato incorrecto, vuelve a intentarlo." << endl;
+        }
+    }
+}
+
+string solicitarAula() {
+    if (controlador.validarAulasDisponibles()) {
+        while (true) {
+            string aula = solicitarInformacion("Digite el n\u00famero del aula\n (Del 1 al 5)");
+
+            if (controlador.esAulaDisponible(aula)) {
+                cout << controlador.cambiarEstadoAula(aula) << endl;
+                return aula;
+            } else {
+                cout << "Esta aula est\u00e1 ocupada;" << endl;
+            }
+        }
+    }
+    cout << "Todas las aulas ya no est\u00e1n disponibles." << endl;
+    return "SIN AULA";
 }
 
 

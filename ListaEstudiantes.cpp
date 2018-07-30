@@ -78,16 +78,6 @@ Estudiante ListaEstudiantes::buscar(string dato) {
     return encontrado;
 }
 
-int ListaEstudiantes::size(){
-    NodoEstudiante* aux = getCabeza();
-    int cont = 0;
-    while(aux != NULL){
-        cont++;
-        aux = aux->getSiguiente();
-    }
-    return cont;
-}
-
 bool ListaEstudiantes::isExisteEstudiante(string cedula){
     NodoEstudiante* aux = getCabeza();
     

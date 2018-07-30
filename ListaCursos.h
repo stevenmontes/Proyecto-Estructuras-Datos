@@ -29,7 +29,6 @@ public:
     string mostrar();
     Curso* buscar(string);
     string obtenerCursosMatriculados(string cedula);
-    int size();
     bool esVacia();
 private:
     NodoCurso* cabeza;

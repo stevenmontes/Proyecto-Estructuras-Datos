@@ -34,7 +34,7 @@ public:
     string mostrarEstudiantesConNotas(string*);
     string buscarEstudiante(string*);
     string buscarCurso(string*);
-    string insertarNota(string* cedula, string* codigo, int nota);
+    string insertarNota(string* cedula, string* codigo, int* nota);
     void inicializarAulas();
     bool esAulaDisponible(string aula);
     string cambiarEstadoAula(string aula);

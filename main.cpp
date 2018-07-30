@@ -36,6 +36,7 @@ void buscarEstudiante(string* prt);
 string solicitarHorario();
 string solicitarDiaSemana();
 string solicitarAula();
+int* solicitarNota();
 
 /*
  * 
@@ -181,7 +182,7 @@ void buscarEstudiante(string* ptrCodigo) {
 void insertarNota(string* ptrCodigo, string* ptrCedula) {
     *ptrCedula = solicitarInformacion("Digite la c\u00e9dula del estudiante");
     *ptrCodigo = solicitarInformacion("Digite el c\u00f3digo del curso");
-    int nota = solicitarOpcion("Digite la nota del estudiante");
+    int* nota = solicitarNota();
     cout << controlador.insertarNota(ptrCedula, ptrCodigo, nota);
 }
 
@@ -248,6 +249,18 @@ string solicitarAula() {
     }
     cout << "Todas las aulas ya no est\u00e1n disponibles." << endl;
     return "SIN AULA";
+}
+
+int* solicitarNota(){
+    while(true){
+       int* nota; 
+       *nota = solicitarOpcion("Digite la nota del estudiante");
+       if(*nota >= 0 && *nota <= 100){
+           return nota;
+       }
+    }
+    
+    
 }
 
 

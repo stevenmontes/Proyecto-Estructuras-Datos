@@ -111,14 +111,14 @@ string Controlador::buscarEstudiante(string* cedula) {
     return "No se encuentra en el sistema.\n";
 }
 
-string Controlador::insertarNota(string* cedula, string* codigo, int nota) {
+string Controlador::insertarNota(string* cedula, string* codigo, int* nota) {
     Curso* curso = listaCursos.buscar(*codigo);
 
     if (curso != NULL) {
         ListaEstudiantes update = curso->getListaEstudiantes();
         
         if (update.isExisteEstudiante(*cedula)) {
-            update.insertarNota(*cedula, nota);
+            update.insertarNota(*cedula, *nota);
             curso->setListaEstudiantes(update);
             return "La nota se registr\u00f3 exitosamente\n";
         } else {

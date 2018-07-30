@@ -29,7 +29,8 @@ void obtenerInfoCurso();
 void matricularEstudiantesACurso(string* prt, string* ptr);
 void mostrarListaEstudiantesCurso(string* prt);
 void mostrarCursosMatriculadosPorEstudiante(string* prt);
-void insertarNota(string* prt);
+void mostrarEstudiantesConNotas(string* ptr);
+void insertarNota(string* prt, string* ptr);
 void buscarCurso(string* prt);
 void buscarEstudiante(string* prt);
 string solicitarHorario();
@@ -65,8 +66,9 @@ void mostrarMenu() {
     cout << "8. Buscar un curso." << endl;
     cout << "9. Buscar un estudiante" << endl;
     cout << "10. Insertar nota" << endl;
-    cout << "11. Mostrar todas las aulas." << endl;
-    cout << "12. Salir." << endl;
+    cout << "11. Mostrar estudiantes con notas de un curso" << endl;
+    cout << "12. Mostrar todas las aulas." << endl;
+    cout << "13. Salir." << endl;
 }
 
 int solicitarOpcion(string message) {
@@ -114,12 +116,15 @@ bool leerOpcion(int opcion) {
             buscarEstudiante(&codigo);
             break;
         case 10:
-            insertarNota(&codigo);
+            insertarNota(&codigo, &cedula);
             break;
         case 11:
-            cout << controlador.mostrarAulas();
+            mostrarEstudiantesConNotas(&codigo);
             break;
         case 12:
+            cout << controlador.mostrarAulas();
+            break;
+        case 13:
             return true;
         default:
             break;
@@ -173,10 +178,16 @@ void buscarEstudiante(string* ptrCodigo) {
     cout << controlador.buscarEstudiante(ptrCodigo);
 }
 
-void insertarNota(string* ptrCodigo) {
-    *ptrCodigo = solicitarInformacion("Digite la c\u00e9dula del estudiante");
+void insertarNota(string* ptrCodigo, string* ptrCedula) {
+    *ptrCedula = solicitarInformacion("Digite la c\u00e9dula del estudiante");
+    *ptrCodigo = solicitarInformacion("Digite el c\u00f3digo del curso");
     int nota = solicitarOpcion("Digite la nota del estudiante");
-    cout << controlador.insertarNota(ptrCodigo, nota);
+    cout << controlador.insertarNota(ptrCedula, ptrCodigo, nota);
+}
+
+void mostrarEstudiantesConNotas(string* ptrCodigo){
+    *ptrCodigo = solicitarInformacion("Digite el c\u00f3digo del curso");
+    cout << controlador.mostrarEstudiantesConNotas(ptrCodigo);
 }
 
 string solicitarHorario() {

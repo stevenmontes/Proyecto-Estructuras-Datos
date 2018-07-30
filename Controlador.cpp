@@ -53,12 +53,12 @@ string Controlador::matricularEstudiante(string* cedula, string* codCurso) {
         return "El estudiante no existe en el sistema\n";
     } else if (curso != NULL) {
         ListaEstudiantes update = curso->getListaEstudiantes();
-        
+
         if (!update.isExisteEstudiante(*cedula)) {
             update.insertar(nuevoAlumno);
             curso->setListaEstudiantes(update);
             return "El estudiante se matricul\u00f3 con \u00e9xito\n";
-        }else {
+        } else {
             return "El estudiante ya se matricul\u00f3 en este curso anteriormente.\n";
         }
 
@@ -87,12 +87,20 @@ string Controlador::mostrarEstudiantes() {
     return listaGeneralEstudiantes.mostrar();
 }
 
+string Controlador::mostrarEstudiantesConNotas(string* codigo){
+    Curso* curso = listaCursos.buscar(*codigo);
+    if(curso != NULL){
+        return curso->getListaEstudiantes().mostrarConNota();
+    }
+    return "El curso no se encuentra en el sistema.\n";
+}
+
 string Controlador::buscarCurso(string* codigo) {
     Curso* nuevo = listaCursos.buscar(*codigo);
     if (nuevo != NULL) {
         return nuevo->toString();
     }
-    return "No se encuentra en el sistema.\n";
+    return "El curso no se encuentra en el sistema.\n";
 }
 
 string Controlador::buscarEstudiante(string* cedula) {
@@ -103,13 +111,22 @@ string Controlador::buscarEstudiante(string* cedula) {
     return "No se encuentra en el sistema.\n";
 }
 
-string Controlador::insertarNota(string* cedula, int nota) {
-    bool funciono = listaGeneralEstudiantes.insertarNota(*cedula, nota);
+string Controlador::insertarNota(string* cedula, string* codigo, int nota) {
+    Curso* curso = listaCursos.buscar(*codigo);
 
-    if (funciono) {
-        return "La nota se registr\u00f3 exitosamente\n";
+    if (curso != NULL) {
+        ListaEstudiantes update = curso->getListaEstudiantes();
+        
+        if (update.isExisteEstudiante(*cedula)) {
+            update.insertarNota(*cedula, nota);
+            curso->setListaEstudiantes(update);
+            return "La nota se registr\u00f3 exitosamente\n";
+        } else {
+            return "El estudiante no se encuentra en el sistema.\n";
+        }
+
     } else {
-        return "El estudiante no se encuentra en el sistema.\n";
+        return "El curso no se encuentra en el sistema.\n";
     }
 }
 

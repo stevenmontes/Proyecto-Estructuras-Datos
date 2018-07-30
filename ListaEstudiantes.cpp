@@ -48,14 +48,35 @@ string ListaEstudiantes::mostrar() {
     stringstream contenido;
     NodoEstudiante* aux = getCabeza();
     int cont = 0;
-    
+
     if (esVacia()) {
         return "La lista est\u00e1 vac\u00eda \n";
     }
-    
+
     while (aux != NULL) {
-        contenido << "Estudiante: " << (++cont) << " "
-                << aux->getInfo().toString() << "Nota: " << aux->getNotaFinal()
+        contenido << (++cont) << "-"
+                << aux->getInfo().toString() << "\n";
+        aux = aux->getSiguiente();
+    }
+
+    return contenido.str();
+}
+
+string ListaEstudiantes::mostrarConNota() {
+    stringstream contenido;
+    NodoEstudiante* aux = getCabeza();
+    int cont = 0;
+
+    if (esVacia()) {
+        return "La lista est\u00e1 vac\u00eda \n";
+    }
+
+    while (aux != NULL) {
+        contenido << (++cont)  << "-"
+                << " Cedula: " << aux->getInfo().getCedula()
+                << " Primer nombre: " << aux->getInfo().getPrimerNombre()
+                << " Primer apellido: " << aux->getInfo().getSegundoApellido()
+                << " Nota: " << aux->getNotaFinal()
                 << "\n";
         aux = aux->getSiguiente();
     }

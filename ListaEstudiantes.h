@@ -27,6 +27,7 @@ public:
     virtual ~ListaEstudiantes();
     void insertar(Estudiante nuevo);
     string mostrar();
+    string mostrarConNota();
     Estudiante buscar(string);
     bool isExisteEstudiante(string);
     bool insertarNota(string, int);

@@ -48,10 +48,14 @@ string ListaEstudiantes::mostrar() {
     stringstream contenido;
     NodoEstudiante* aux = getCabeza();
     int cont = 0;
-
+    
+    if (esVacia()) {
+        return "La lista est\u00e1 vac\u00eda \n";
+    }
+    
     while (aux != NULL) {
-        contenido << "Estudiante: " << (++cont) << " " 
-                << aux->getInfo().toString() << aux->getNotaFinal() 
+        contenido << "Estudiante: " << (++cont) << " "
+                << aux->getInfo().toString() << "Nota: " << aux->getNotaFinal()
                 << "\n";
         aux = aux->getSiguiente();
     }
@@ -78,9 +82,9 @@ Estudiante ListaEstudiantes::buscar(string dato) {
     return encontrado;
 }
 
-bool ListaEstudiantes::isExisteEstudiante(string cedula){
+bool ListaEstudiantes::isExisteEstudiante(string cedula) {
     NodoEstudiante* aux = getCabeza();
-    
+
     while (aux != NULL) {
         if (aux->getInfo().getCedula() == cedula) {
             return true;
@@ -91,9 +95,9 @@ bool ListaEstudiantes::isExisteEstudiante(string cedula){
     return false;
 }
 
-bool ListaEstudiantes::insertarNota(string cedula, int nota){
+bool ListaEstudiantes::insertarNota(string cedula, int nota) {
     NodoEstudiante* aux = getCabeza();
-    
+
     while (aux != NULL) {
         if (aux->getInfo().getCedula() == cedula) {
             aux->setNotaFinal(nota);
@@ -101,7 +105,7 @@ bool ListaEstudiantes::insertarNota(string cedula, int nota){
         }
         aux = aux->getSiguiente();
     }
-    
+
     return false;
 
 }

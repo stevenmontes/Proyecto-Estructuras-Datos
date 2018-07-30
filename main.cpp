@@ -29,7 +29,6 @@ void obtenerInfoCurso();
 void matricularEstudiantesACurso(string* prt, string* ptr);
 void mostrarListaEstudiantesCurso(string* prt);
 void mostrarCursosMatriculadosPorEstudiante(string* prt);
-void mostrarEstadoEstudiantes();
 void insertarNota(string* prt);
 void buscarCurso(string* prt);
 void buscarEstudiante(string* prt);
@@ -61,12 +60,12 @@ void mostrarMenu() {
     cout << "3. Matricular estudiantes a un curso." << endl;
     cout << "4. Mostrar estudiantes de un curso" << endl;
     cout << "5. Mostrar cursos matriculados de un estudiante." << endl;
-    cout << "6. Mostrar estudiantes por nota." << endl;
-    cout << "7. Mostrar todos los cursos." << endl;
-    cout << "8. Mostrar todos los estudiantes." << endl;
-    cout << "9. Buscar un curso." << endl;
-    cout << "10. Buscar un estudiante" << endl;
-    cout << "11. Insertar nota" << endl;
+    cout << "6. Mostrar todos los cursos." << endl;
+    cout << "7. Mostrar todos los estudiantes." << endl;
+    cout << "8. Buscar un curso." << endl;
+    cout << "9. Buscar un estudiante" << endl;
+    cout << "10. Insertar nota" << endl;
+    cout << "11. Mostrar todas las aulas." << endl;
     cout << "12. Salir." << endl;
 }
 
@@ -103,28 +102,25 @@ bool leerOpcion(int opcion) {
             mostrarCursosMatriculadosPorEstudiante(&codigo);
             break;
         case 6:
-            mostrarEstadoEstudiantes();
-            break;
-        case 7:
             cout << controlador.mostrarCursos();
             break;
-        case 8:
+        case 7:
             cout << controlador.mostrarEstudiantes();
             break;
-        case 9:
+        case 8:
             buscarCurso(&codigo);
             break;
-        case 10:
+        case 9:
             buscarEstudiante(&codigo);
             break;
-        case 11:
+        case 10:
             insertarNota(&codigo);
+            break;
+        case 11:
+            cout << controlador.mostrarAulas();
             break;
         case 12:
             return true;
-        case 13:
-            cout << controlador.mostrarAulas();
-            break;
         default:
             break;
     }
@@ -165,10 +161,6 @@ void mostrarListaEstudiantesCurso(string* ptrCodigo) {
 void mostrarCursosMatriculadosPorEstudiante(string* ptrCodigo) {
     *ptrCodigo = solicitarInformacion("Digite la c\u00e9dula del estudiante");
     cout << controlador.mostrarCursosPorEstudiante(ptrCodigo);
-}
-
-void mostrarEstadoEstudiantes() {
-
 }
 
 void buscarCurso(string* ptrCodigo) {

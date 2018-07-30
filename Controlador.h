@@ -29,7 +29,6 @@ public:
     string matricularEstudiante(string*, string*);
     string mostrarEstudiantesPorCurso(string*);
     string mostrarCursosPorEstudiante(string*);
-    string mostrarEstadosEstudiantes();
     string mostrarCursos();
     string mostrarEstudiantes();
     string buscarEstudiante(string*);

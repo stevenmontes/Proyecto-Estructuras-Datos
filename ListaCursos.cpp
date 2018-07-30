@@ -49,6 +49,10 @@ string ListaCursos::mostrar() {
     stringstream contenido;
     NodoCurso* aux = getCabeza();
     int cont = 0;
+    
+    if (esVacia()) {
+        return "La lista est\u00e1 vac\u00eda \n";
+    }
 
     while (aux != NULL) {
         contenido << "Curso: " << (++cont) << " "
@@ -61,10 +65,9 @@ string ListaCursos::mostrar() {
 
 Curso* ListaCursos::buscar(string dato) {
     NodoCurso* aux = getCabeza();
-    Curso* encontrado;
 
     if (esVacia()) {
-        return encontrado;
+        return NULL;
     }
 
     while (aux != NULL) {
@@ -74,7 +77,7 @@ Curso* ListaCursos::buscar(string dato) {
         aux = aux->getSiguiente();
     }
 
-    return encontrado;
+    return NULL;
 }
 
 string ListaCursos::obtenerCursosMatriculados(string cedula){
@@ -82,6 +85,10 @@ string ListaCursos::obtenerCursosMatriculados(string cedula){
     bool existe = false;
     int cont = 0;
     stringstream cursosMatriculados;
+    
+    if (esVacia()) {
+        return "La lista est\u00e1 vac\u00eda \n";
+    }
     
     while(aux != NULL){
         existe = aux->getInfo()->getListaEstudiantes().isExisteEstudiante(cedula);

@@ -35,14 +35,14 @@ string Controlador::ingresarCurso(string* codigo, string* nombre,
     Aula clase(*aula, false);
     Curso nuevo(*codigo, *nombre, *horario, *dia, clase);
     listaCursos.insertar(nuevo);
-    return "Se registr\u00f3 correctamente \n";
+    return "Se registr\u00f3 correctamente\n";
 }
 
 string Controlador::ingresarEstudiante(string* cedula, string* nom1, string* nom2,
         string* ape1, string* ape2) {
     Estudiante nuevo(*cedula, *nom1, *nom2, *ape1, *ape2);
     listaGeneralEstudiantes.insertar(nuevo);
-    return "Se registr\u00f3 correctamente \n";
+    return "Se registr\u00f3 correctamente\n";
 }
 
 string Controlador::matricularEstudiante(string* cedula, string* codCurso) {
@@ -50,27 +50,33 @@ string Controlador::matricularEstudiante(string* cedula, string* codCurso) {
     Curso* curso = listaCursos.buscar(*codCurso);
 
     if (nuevoAlumno.getCedula() == "") {
-        return "El estudiante no existe en el sistema \n";
-    } else if (curso->getCodigo() != "") {
+        return "El estudiante no existe en el sistema\n";
+    } else if (curso != NULL) {
         ListaEstudiantes update = curso->getListaEstudiantes();
-        update.insertar(nuevoAlumno);
-        curso->setListaEstudiantes(update);
-        return "El estudiante se matricul\u00f3 con \u00e9xito \n";
+        
+        if (!update.isExisteEstudiante(*cedula)) {
+            update.insertar(nuevoAlumno);
+            curso->setListaEstudiantes(update);
+            return "El estudiante se matricul\u00f3 con \u00e9xito\n";
+        }else {
+            return "El estudiante ya se matricul\u00f3 en este curso anteriormente.\n";
+        }
+
     } else {
-        return "El curso no existe en el sistema. \n";
+        return "El curso no existe en el sistema.\n";
     }
 }
 
 string Controlador::mostrarEstudiantesPorCurso(string* codCurso) {
     Curso* curso = listaCursos.buscar(*codCurso);
-    return curso->getListaEstudiantes().mostrar();
+    if (curso != NULL) {
+        return curso->getListaEstudiantes().mostrar();
+    }
+    return "Dato introducido incorrecto o la lista est\u00e1 vac\u00eda.\n";
 }
 
 string Controlador::mostrarCursosPorEstudiante(string* cedAlumno) {
     return listaCursos.obtenerCursosMatriculados(*cedAlumno);
-}
-
-string Controlador::mostrarEstadosEstudiantes() {
 }
 
 string Controlador::mostrarCursos() {
@@ -83,21 +89,27 @@ string Controlador::mostrarEstudiantes() {
 
 string Controlador::buscarCurso(string* codigo) {
     Curso* nuevo = listaCursos.buscar(*codigo);
-    return nuevo->toString();
+    if (nuevo != NULL) {
+        return nuevo->toString();
+    }
+    return "No se encuentra en el sistema.\n";
 }
 
 string Controlador::buscarEstudiante(string* cedula) {
     Estudiante nuevo = listaGeneralEstudiantes.buscar(*cedula);
-    return nuevo.toString();
+    if (nuevo.getCedula() != "") {
+        return nuevo.toString();
+    }
+    return "No se encuentra en el sistema.\n";
 }
 
 string Controlador::insertarNota(string* cedula, int nota) {
     bool funciono = listaGeneralEstudiantes.insertarNota(*cedula, nota);
 
     if (funciono) {
-        return "La nota se registr\u00f3 exitosamente \n";
+        return "La nota se registr\u00f3 exitosamente\n";
     } else {
-        return "El estudiante no se encuentra en el sistema. \n";
+        return "El estudiante no se encuentra en el sistema.\n";
     }
 }
 
@@ -153,11 +165,11 @@ bool Controlador::validarAulasDisponibles() {
 
 string Controlador::mostrarAulas() {
     stringstream contenido;
-    
+
     for (int i = 0; i < 5; i++) {
         contenido << "Aula: " << aulas[i].toString() << "\n";
     }
-    
+
     return contenido.str();
 }
 
